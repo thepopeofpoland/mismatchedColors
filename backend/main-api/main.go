@@ -1,12 +1,11 @@
 package main
 
 import (
+	"mismatchedColors/database"
+
 	"database/sql"
 	"encoding/json"
 
-	//Can't add these just yet because goland gets rid of them when not being used
-	"mismatchedColors/models"
-	"mismatchedColors/database"
 	"log"
 	"net/http"
 
