@@ -48,3 +48,26 @@ func getRandomColorsHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(colorJSON)
 }
+
+func insertRandomColorHandler(w htp.ResponseWriter, r *http.Request) {
+	var randomColor models.RandomColors
+
+	err := json.NewDecoder(r.Body).Decode(&randomColor)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	// Put some error handling here to check for missing parameters (bad JSON)
+
+	newColor := mismatchedColorsdb.InsertNewSchoolSupply(MismatchedColors.db, randomColor)
+
+	newSupplyJson, err := json.Marshal(newColor)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(newSupplyJson)
+}
