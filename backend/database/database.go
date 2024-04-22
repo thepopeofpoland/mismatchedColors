@@ -31,8 +31,8 @@ func GetAllRandomColors(db *sql.DB) []models.RandomColors {
 	return colors
 }
 
-func insertNewRandomColor(db *sql.DB, randomColor models.RandomColors) models.RandomColors {
-	colorSQL := "INSERT INTO RandomColors (name, hex) VALUES (?, ?)"
+func InsertNewRandomColor(db *sql.DB, randomColor models.RandomColors) models.RandomColors {
+	colorSQL := "INSERT INTO RandomColors (ColorName, ColorHex) VALUES (?, ?)"
 	statement, err := db.Prepare(colorSQL)
 	if err != nil {
 		log.Fatal(err)

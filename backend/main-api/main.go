@@ -2,6 +2,7 @@ package main
 
 import (
 	"mismatchedColors/database"
+	"mismatchedColors/models"
 
 	"database/sql"
 	"encoding/json"
@@ -49,7 +50,7 @@ func getRandomColorsHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write(colorJSON)
 }
 
-func insertRandomColorHandler(w htp.ResponseWriter, r *http.Request) {
+func insertRandomColorHandler(w http.ResponseWriter, r *http.Request) {
 	var randomColor models.RandomColors
 
 	err := json.NewDecoder(r.Body).Decode(&randomColor)
@@ -60,7 +61,7 @@ func insertRandomColorHandler(w htp.ResponseWriter, r *http.Request) {
 
 	// Put some error handling here to check for missing parameters (bad JSON)
 
-	newColor := mismatchedColorsdb.InsertNewSchoolSupply(MismatchedColors.db, randomColor)
+	newColor := colorDB.InsertNewRandomColor(mismatchedColorsdb, randomColor)
 
 	newSupplyJson, err := json.Marshal(newColor)
 	if err != nil {
