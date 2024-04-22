@@ -26,7 +26,8 @@ func main() {
 	defer mismatchedColorsdb.Close()
 
 	router.HandleFunc("/", hello).Methods(http.MethodPost)
-	router.HandleFunc("/getmismatchedcolors", getMismatchedColorsHandler).Methods(http.MethodPost)
+	router.HandleFunc("/getrandomcolors", getRandomColorsHandler).Methods(http.MethodPost)
+	router.HandleFunc("/insertrandomcolor", insertRandomColorHandler).Methods(http.MethodPost)
 
 	http.ListenAndServe(":8000", router)
 }
@@ -35,7 +36,7 @@ func hello(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("hello"))
 }
 
-func getMismatchedColorsHandler(w http.ResponseWriter, r *http.Request) {
+func getRandomColorsHandler(w http.ResponseWriter, r *http.Request) {
 	colors := colorDB.GetAllRandomColors(mismatchedColorsdb)
 
 	colorJSON, err := json.Marshal(colors)
