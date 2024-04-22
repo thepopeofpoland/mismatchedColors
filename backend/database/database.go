@@ -37,7 +37,7 @@ func insertNewRandomColor(db *sql.DB, randomColor models.RandomColors) models.Ra
 	if err != nil {
 		log.Fatal(err)
 	}
-	res, err := statement.Exec(randomColor.name, randomColor.hex)
+	res, err := statement.Exec(randomColor.ColorName, randomColor.ColorHex)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -45,6 +45,6 @@ func insertNewRandomColor(db *sql.DB, randomColor models.RandomColors) models.Ra
 	if err != nil {
 		log.Fatal(err)
 	}
-	randomColor.id = int(lid)
+	randomColor.ColorID = int(lid)
 	return randomColor
 }
