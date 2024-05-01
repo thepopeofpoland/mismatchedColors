@@ -85,7 +85,7 @@ func GetAllColorPalettes(db *sql.DB) []models.ColorPalettes {
 }
 
 
-func InsertNewColorPalette(db *sql.DB, colorPalette models.RandomColors) models.RandomColors {
+func InsertNewColorPalette(db *sql.DB, colorPalette models.ColorPalettes) models.ColorPalettes {
 	paletteSQL := "INSERT INTO ColorPalettes (PaletteName, Color1, Color2, Color3, Color4, Color5) VALUES (?, ?, ?, ?, ?, ?)"
 	statement, err := db.Prepare(paletteSQL)
 	if err != nil {
@@ -99,6 +99,6 @@ func InsertNewColorPalette(db *sql.DB, colorPalette models.RandomColors) models.
 	if err != nil {
 		log.Fatal(err)
 	}
-	colorPalette.PaletteIDID = int(lid)
+	colorPalette.PaletteID = int(lid)
 	return colorPalette
 }

@@ -31,7 +31,7 @@ func main() {
 	router.HandleFunc("/insertrandomcolor", insertRandomColorHandler).Methods(http.MethodPost)
 
 	router.HandleFunc("/getcolorpalettes", getColorPalettes).Methods(http.MethodPost)
-	router.HandleFunc("/insertcolorpalette", insertColorPaletteHandler).Methods(https.MethodPost)
+	router.HandleFunc("/insertcolorpalette", insertColorPaletteHandler).Methods(http.MethodPost)
 
 	http.ListenAndServe(":8000", router)
 }
