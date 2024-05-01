@@ -48,3 +48,38 @@ func InsertNewRandomColor(db *sql.DB, randomColor models.RandomColors) models.Ra
 	randomColor.ColorID = int(lid)
 	return randomColor
 }
+
+
+// --- Color Palettes ---
+func GetAllColorPalettes(db *sql.DB) []models.ColorPalettes {
+	var palettes []models.ColorPalettes
+
+	row, err := db.Query("SELECT * FROM ColorPalettes")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer row.Close()
+
+	for row.Next() {
+		var id int
+		var name string
+		var color1 int
+		var color2 int
+		var color3 int
+		var color4 int
+		var color5 int
+
+		row.Scan(&id, &name, &color1, &color2, &color3, &color4, &color5)
+		palette := models.ColorPalettes{
+			PaletteID: id,
+			PaletteName: name,
+			Color1: color1,
+			Color2: color2,
+			Color3: color3,
+			Color4: color4,
+			Color5: color5,
+		}
+		palettes = append(palettes, palette)
+	}
+	return palettes
+}
