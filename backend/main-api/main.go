@@ -29,6 +29,7 @@ func main() {
 	router.HandleFunc("/", hello).Methods(http.MethodPost)
 	router.HandleFunc("/getrandomcolors", getRandomColorsHandler).Methods(http.MethodPost)
 	router.HandleFunc("/insertrandomcolor", insertRandomColorHandler).Methods(http.MethodPost)
+	router.HandleFunc("/getcolorpalettes", getColorPalettes).Methods(http.MethodPost)
 
 	http.ListenAndServe(":8000", router)
 }
