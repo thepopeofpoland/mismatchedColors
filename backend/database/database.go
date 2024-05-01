@@ -83,3 +83,22 @@ func GetAllColorPalettes(db *sql.DB) []models.ColorPalettes {
 	}
 	return palettes
 }
+
+
+func InsertNewColorPalette(db *sql.DB, colorPalette models.RandomColors) models.RandomColors {
+	paletteSQL := "INSERT INTO ColorPalettes (PaletteName, Color1, Color2, Color3, Color4, Color5) VALUES (?, ?, ?, ?, ?, ?)"
+	statement, err := db.Prepare(paletteSQL)
+	if err != nil {
+		log.Fatal(err)
+	}
+	res, err := statement.Exec(colorPalette.PaletteName, colorPalette.Color1, colorPalette.Color2, colorPalette.Color3, colorPalette.Color4, colorPalette.Color5)
+	if err != nil {
+		log.Fatal(err)
+	}
+	lid, err := res.LastInsertId()
+	if err != nil {
+		log.Fatal(err)
+	}
+	colorPalette.PaletteIDID = int(lid)
+	return colorPalette
+}

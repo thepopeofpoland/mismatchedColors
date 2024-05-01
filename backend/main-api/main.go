@@ -29,7 +29,9 @@ func main() {
 	router.HandleFunc("/", hello).Methods(http.MethodPost)
 	router.HandleFunc("/getrandomcolors", getRandomColorsHandler).Methods(http.MethodPost)
 	router.HandleFunc("/insertrandomcolor", insertRandomColorHandler).Methods(http.MethodPost)
+
 	router.HandleFunc("/getcolorpalettes", getColorPalettes).Methods(http.MethodPost)
+	router.HandleFunc("/insertcolorpalette", insertColorPaletteHandler).Methods(https.MethodPost)
 
 	http.ListenAndServe(":8000", router)
 }
@@ -88,4 +90,28 @@ func getColorPalettes(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(paletteJSON)
+}
+
+
+func insertColorPaletteHandler(w http.ResponseWriter, r *http.Request) {
+	var colorPalette models.RandomColors
+
+	err := json.NewDecoder(r.Body).Decode(&colorPalette)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	// Put some error handling here to check for missing parameters (bad JSON)
+
+	newPalette := colorDB.InsertNewColorPalette(mismatchedColorsdb, colorPalette)
+
+	newSupplyJson, err := json.Marshal(newPalette)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(newSupplyJson)
 }
