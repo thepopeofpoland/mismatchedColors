@@ -72,3 +72,19 @@ func insertRandomColorHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(newSupplyJson)
 }
+
+
+// --- Color Palettes ---
+
+func getColorPalettes(w http.ResponseWriter, r *http.Request) {
+	palettes := colorDB.GetAllColorPalettes(mismatchedColorsdb)
+
+	paletteJSON, err := json.Marshal(palettes)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(paletteJSON)
+}
