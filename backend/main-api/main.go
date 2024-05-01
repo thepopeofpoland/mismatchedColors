@@ -94,7 +94,7 @@ func getColorPalettes(w http.ResponseWriter, r *http.Request) {
 
 
 func insertColorPaletteHandler(w http.ResponseWriter, r *http.Request) {
-	var colorPalette models.RandomColors
+	var colorPalette models.ColorPalettes
 
 	err := json.NewDecoder(r.Body).Decode(&colorPalette)
 	if err != nil {
