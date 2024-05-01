@@ -30,7 +30,7 @@ func main() {
 	router.HandleFunc("/getrandomcolors", getRandomColorsHandler).Methods(http.MethodPost)
 	router.HandleFunc("/insertrandomcolor", insertRandomColorHandler).Methods(http.MethodPost)
 
-	router.HandleFunc("/getcolorpalettes", getColorPalettes).Methods(http.MethodPost)
+	router.HandleFunc("/getcolorpalettes", getColorPalettesHandler).Methods(http.MethodPost)
 	router.HandleFunc("/insertcolorpalette", insertColorPaletteHandler).Methods(http.MethodPost)
 
 	http.ListenAndServe(":8000", router)
@@ -79,7 +79,7 @@ func insertRandomColorHandler(w http.ResponseWriter, r *http.Request) {
 
 // --- Color Palettes ---
 
-func getColorPalettes(w http.ResponseWriter, r *http.Request) {
+func getColorPalettesHandler(w http.ResponseWriter, r *http.Request) {
 	palettes := colorDB.GetAllColorPalettes(mismatchedColorsdb)
 
 	paletteJSON, err := json.Marshal(palettes)
